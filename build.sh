@@ -3,7 +3,7 @@
 # The archive to mirror
 ARCHIVE=http://archive.ubuntu.com/ubuntu
 # The components to mirror
-COMPONENTS=(main restricted multiverse)
+COMPONENTS=(main restricted universe multiverse)
 # Distributions to mirror
 DISTS=(bionic cosmic disco)
 
