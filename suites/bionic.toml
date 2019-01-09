@@ -1,0 +1,10 @@
+archive = "bionic"
+version = "18.04"
+origin = "system76-ubuntu-main"
+label = "System76 Ubuntu Main Mirror"
+email = "info@system76.com"
+
+[[repos]]
+repo = "http://archive.ubuntu.com/ubuntu/pool/main/"
+version = { is = "ubuntu18.04" }
+arch = { is = "all|amd64" }
