@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+# The archive to mirror
+ARCHIVE=http://archive.ubuntu.com/ubuntu
+# The components to mirror
+COMPONENTS=(main restricted multiverse)
+# Distributions to mirror
+DISTS=(bionic cosmic disco)
+
 set -e
 
 mkdir -p build
@@ -8,10 +15,6 @@ echo "set base_path $(realpath build)" > build/mirror.list
 echo "set nthreads $(nproc)" >> build/mirror.list
 echo "set _autoclean 1" >> build/mirror.list
 echo "set run_postmirror 0" >> build/mirror.list
-
-ARCHIVE=http://archive.ubuntu.com/ubuntu
-COMPONENTS=(main restricted multiverse)
-DISTS=(bionic cosmic disco)
 
 for dist in "${DISTS[@]}"
 do
