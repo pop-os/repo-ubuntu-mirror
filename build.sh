@@ -17,4 +17,8 @@ done
 
 echo "clean http://archive.ubuntu.com/ubuntu" >> build/mirror.list
 
+mkdir -p build/var
+
+echo "#!/usr/bin/env bash" > build/var/postmirror.sh
+
 apt-mirror build/mirror.list
