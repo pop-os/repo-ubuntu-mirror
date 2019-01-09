@@ -6,6 +6,8 @@ mkdir -p build
 
 echo "set base_path $(realpath build)" > build/mirror.list
 echo "set nthreads $(nproc)" >> build/mirror.list
+echo "set _autoclean 1" >> build/mirror.list
+echo "set run_postmirror 0" >> build/mirror.list
 
 for dist in bionic cosmic disco
 do
@@ -18,7 +20,5 @@ done
 echo "clean http://archive.ubuntu.com/ubuntu" >> build/mirror.list
 
 mkdir -p build/var
-
-echo "#!/usr/bin/env bash" > build/var/postmirror.sh
 
 apt-mirror build/mirror.list
