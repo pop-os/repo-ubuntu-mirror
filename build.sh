@@ -12,12 +12,14 @@ echo "set run_postmirror 0" >> build/mirror.list
 for dist in bionic cosmic disco
 do
     echo "deb http://archive.ubuntu.com/ubuntu $dist main" >> build/mirror.list
-    echo "deb http://archive.ubuntu.com/ubuntu $dist-security main" >> build/mirror.list
     echo "deb http://archive.ubuntu.com/ubuntu $dist-updates main" >> build/mirror.list
+    echo "deb http://archive.ubuntu.com/ubuntu $dist-security main" >> build/mirror.list
+    echo "deb http://archive.ubuntu.com/ubuntu $dist-backports main" >> build/mirror.list
     echo "deb http://archive.ubuntu.com/ubuntu $dist-proposed main" >> build/mirror.list
     echo "deb-src http://archive.ubuntu.com/ubuntu $dist main" >> build/mirror.list
-    echo "deb-src http://archive.ubuntu.com/ubuntu $dist-security main" >> build/mirror.list
     echo "deb-src http://archive.ubuntu.com/ubuntu $dist-updates main" >> build/mirror.list
+    echo "deb-src http://archive.ubuntu.com/ubuntu $dist-security main" >> build/mirror.list
+    echo "deb-src http://archive.ubuntu.com/ubuntu $dist-backports main" >> build/mirror.list
     echo "deb-src http://archive.ubuntu.com/ubuntu $dist-proposed main" >> build/mirror.list
 done
 
