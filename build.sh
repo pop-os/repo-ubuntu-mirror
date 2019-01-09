@@ -1,31 +1,20 @@
 #!/usr/bin/env bash
 
-set -ex
+set -e
 
-function install_debrep {
-	LATEST=$(git ls-remote https://github.com/pop-os/debrepbuild | grep HEAD | cut -c-7)
+mkdir -p build
 
-	if type debrep; then
-		CURRENT=$(debrep --version | cut -d' ' -f5 | cut -c2- | cut -c-7)
-	    if [ ! $CURRENT ] || [ $CURRENT != $LATEST ]; then
-	    	INSTALL=1
-	    fi
-	else
-		INSTALL=1
-	fi
+echo "set base_path $(realpath build)" > build/mirror.list
+echo "set nthreads $(nproc)" >> build/mirror.list
 
-	if [ $INSTALL ]; then
-		cargo install --git https://github.com/pop-os/debrepbuild --force
-	fi
-}
+for dist in bionic cosmic disco
+do
+    echo "deb http://archive.ubuntu.com/ubuntu $dist main" >> build/mirror.list
+    echo "deb http://archive.ubuntu.com/ubuntu $dist-security main" >> build/mirror.list
+    echo "deb http://archive.ubuntu.com/ubuntu $dist-updates main" >> build/mirror.list
+    echo "deb http://archive.ubuntu.com/ubuntu $dist-proposed main" >> build/mirror.list
+done
 
-function copy_suites {
-	rsync -avz suites build/
-}
+echo "clean http://archive.ubuntu.com/ubuntu" >> build/mirror.list
 
-install_debrep
-copy_suites
-
-cd build
-debrep build
-cd ..
+apt-mirror build/mirror.list
