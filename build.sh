@@ -6,6 +6,10 @@ ARCHIVE=http://archive.ubuntu.com/ubuntu
 COMPONENTS=(main restricted universe multiverse)
 # Distributions to mirror
 DISTS=(bionic cosmic disco)
+# Repos to mirror
+REPOS=("" "-security" "-updates" "-backports" "-proposed")
+# Architectures to mirror
+ARCHS=(amd64 i386)
 
 set -e
 
@@ -18,16 +22,14 @@ echo "set run_postmirror 0" >> build/mirror.list
 
 for dist in "${DISTS[@]}"
 do
-    echo "deb $ARCHIVE $dist ${COMPONENTS[@]}" >> build/mirror.list
-    echo "deb $ARCHIVE $dist-updates ${COMPONENTS[@]}" >> build/mirror.list
-    echo "deb $ARCHIVE $dist-security ${COMPONENTS[@]}" >> build/mirror.list
-    echo "deb $ARCHIVE $dist-backports ${COMPONENTS[@]}" >> build/mirror.list
-    echo "deb $ARCHIVE $dist-proposed ${COMPONENTS[@]}" >> build/mirror.list
-    echo "deb-src $ARCHIVE $dist ${COMPONENTS[@]}" >> build/mirror.list
-    echo "deb-src $ARCHIVE $dist-updates ${COMPONENTS[@]}" >> build/mirror.list
-    echo "deb-src $ARCHIVE $dist-security ${COMPONENTS[@]}" >> build/mirror.list
-    echo "deb-src $ARCHIVE $dist-backports ${COMPONENTS[@]}" >> build/mirror.list
-    echo "deb-src $ARCHIVE $dist-proposed ${COMPONENTS[@]}" >> build/mirror.list
+    for repo in "${REPOS[@]}"
+    do
+        for arch in "${ARCHS[@]}"
+        do
+            echo "deb [arch=${arch}] ${ARCHIVE} ${dist}${repo} ${COMPONENTS[@]}" >> build/mirror.list
+        done
+        echo "deb-src ${ARCHIVE} ${dist}${repo} ${COMPONENTS[@]}" >> build/mirror.list
+    done
 done
 
 echo "clean $ARCHIVE" >> build/mirror.list
