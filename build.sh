@@ -9,7 +9,7 @@ DISTS=(bionic cosmic disco)
 # Repos to mirror
 REPOS=("" "-security" "-updates" "-backports" "-proposed")
 # Architectures to mirror
-ARCHS=(amd64 i386)
+ARCHS=(amd64 i386 src)
 
 set -e
 
@@ -26,9 +26,8 @@ do
     do
         for arch in "${ARCHS[@]}"
         do
-            echo "deb [arch=${arch}] ${ARCHIVE} ${dist}${repo} ${COMPONENTS[@]}" >> build/mirror.list
+            echo "deb-${arch} ${ARCHIVE} ${dist}${repo} ${COMPONENTS[@]}" >> build/mirror.list
         done
-        echo "deb-src ${ARCHIVE} ${dist}${repo} ${COMPONENTS[@]}" >> build/mirror.list
     done
 done
 
