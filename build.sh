@@ -35,4 +35,4 @@ echo "clean $ARCHIVE" >> build/mirror.list
 
 mkdir -p build/var
 
-apt-mirror build/mirror.list
+./apt-mirror/apt-mirror build/mirror.list
