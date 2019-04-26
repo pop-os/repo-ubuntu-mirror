@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # The archive to mirror
-ARCHIVE=http://archive.ubuntu.com/ubuntu
+ARCHIVE=archive.ubuntu.com/ubuntu
 # The components to mirror
 COMPONENTS=(main restricted universe multiverse)
 # Distributions to mirror
@@ -18,7 +18,9 @@ mkdir -p build
 echo "set base_path $(realpath build)" > build/mirror.list
 echo "set nthreads 64" >> build/mirror.list
 echo "set _autoclean 1" >> build/mirror.list
-echo "set run_postmirror 0" >> build/mirror.list
+echo "set run_postmirror 1" >> build/mirror.list
+
+echo "#!/bin/sh -e" > build/var/postmirror.sh
 
 for dist in "${DISTS[@]}"
 do
@@ -26,7 +28,21 @@ do
     do
         for arch in "${ARCHS[@]}"
         do
-            echo "deb-${arch} ${ARCHIVE} ${dist}${repo} ${COMPONENTS[@]}" >> build/mirror.list
+            echo "deb-${arch} http://${ARCHIVE} ${dist}${repo} ${COMPONENTS[@]}" >> build/mirror.list
+        done
+        for component in "${COMPONENTS[@]}"
+        do
+            echo rsync \
+                --verbose \
+                --recursive \
+                --times \
+                --links \
+                --hard-links \
+                --delete \
+                --delete-after \
+                "'rsync://${ARCHIVE}/dists/${dist}${repo}/${component}/cnf'" \
+                "'${ARCHIVE}/dists/${dist}${repo}/${component}/'" \
+                >> build/var/postmirror.sh
         done
     done
 done
