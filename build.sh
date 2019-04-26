@@ -16,7 +16,7 @@ set -e
 mkdir -p build
 
 echo "set base_path $(realpath build)" > build/mirror.list
-echo "set nthreads 32" >> build/mirror.list
+echo "set nthreads 64" >> build/mirror.list
 echo "set _autoclean 1" >> build/mirror.list
 echo "set run_postmirror 0" >> build/mirror.list
 
