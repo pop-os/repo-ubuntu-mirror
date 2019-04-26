@@ -20,7 +20,8 @@ echo "set nthreads 64" >> build/mirror.list
 echo "set _autoclean 1" >> build/mirror.list
 echo "set run_postmirror 1" >> build/mirror.list
 
-echo "#!/bin/sh -e" > build/var/postmirror.sh
+echo "#!/usr/bin/env bash" > build/var/postmirror.sh
+echo "set -ex" >> build/var/postmirror.sh
 
 for dist in "${DISTS[@]}"
 do
@@ -33,13 +34,13 @@ do
         for component in "${COMPONENTS[@]}"
         do
             echo rsync \
-                --verbose \
                 --recursive \
                 --times \
                 --links \
                 --hard-links \
                 --delete \
                 --delete-after \
+                --delete-missing-args \
                 "'rsync://${ARCHIVE}/dists/${dist}${repo}/${component}/cnf'" \
                 "'${ARCHIVE}/dists/${dist}${repo}/${component}/'" \
                 >> build/var/postmirror.sh
