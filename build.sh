@@ -5,7 +5,7 @@ ARCHIVE=archive.ubuntu.com/ubuntu
 # The components to mirror
 COMPONENTS=(main restricted universe multiverse)
 # Distributions to mirror
-DISTS=(bionic cosmic disco eoan)
+DISTS=(focal)
 # Repos to mirror
 REPOS=("" "-security" "-updates" "-backports" "-proposed")
 # Architectures to mirror
