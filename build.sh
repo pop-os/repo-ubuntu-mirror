@@ -20,6 +20,8 @@ echo "set nthreads 64" >> build/mirror.list
 echo "set _autoclean 1" >> build/mirror.list
 echo "set run_postmirror 1" >> build/mirror.list
 
+mkdir -p build/var
+
 echo "#!/usr/bin/env bash" > build/var/postmirror.sh
 echo "set -ex" >> build/var/postmirror.sh
 
