@@ -7,6 +7,8 @@ set -ex
 
 mkdir -p build
 
+chmod +rX --recursive build
+
 # Two stage sync, for safety
 RSYNC_ARGS=(
   --recursive
