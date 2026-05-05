@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 # Ubuntu default mirror
-MIRROR=rsync://archive.ubuntu.com/ubuntu/
+#MIRROR=rsync://archive.ubuntu.com/ubuntu/
 
 # Ubuntu default US mirror
 #MIRROR=rsync://us.archive.ubuntu.com/ubuntu/
 
 # Fast mirror that moves load off of Ubuntu
-#MIRROR="rsync://mirror.math.princeton.edu/pub/ubuntu/"
+MIRROR="rsync://mirror.math.princeton.edu/pub/ubuntu/"
 
 set -ex
 
