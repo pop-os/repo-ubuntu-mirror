@@ -4,16 +4,16 @@
 #MIRROR=rsync://archive.ubuntu.com/ubuntu/
 
 # Ubuntu default US mirror
-#MIRROR=rsync://us.archive.ubuntu.com/ubuntu/
+MIRROR=rsync://us.archive.ubuntu.com/ubuntu/
 
 # Fast mirror that moves load off of Ubuntu
-MIRROR="rsync://mirror.math.princeton.edu/pub/ubuntu/"
+#MIRROR="rsync://mirror.math.princeton.edu/pub/ubuntu/"
 
 set -ex
 
 mkdir -p build
 
-chmod +rX --recursive build
+#TODO: use if there are permission issues: chmod +rX --recursive build
 
 # Two stage sync, for safety
 RSYNC_ARGS=(
